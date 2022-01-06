@@ -38,13 +38,21 @@ class Page(DomainObject):
     @classmethod
     def pages(cls, **kw):
         '''Finds a single entity in the register.'''
+        # TODO: how to filter by extras column?
+        # print('cls,kw', cls, kw)
+        # extras = kw.pop('extras', False)
         order = kw.pop('order', False)
         order_publish_date = kw.pop('order_publish_date', False)
 
         query = model.Session.query(cls).autoflush(False)
         query = query.filter_by(**kw)
+        # if bool(extras):
+        #     print('gotextras', extras)
+        #     # query = query.filter_by(**kw['exrtas'])
+        #     query = query.filter_by(**extras)
         if order:
-            query = query.order_by(sa.cast(cls.order, sa.Integer)).filter(cls.order != '')
+            query = query.order_by(
+                sa.cast(cls.order, sa.Integer)).filter(cls.order != '')
         elif order_publish_date:
             query = query.order_by(cls.publish_date.desc()).filter(cls.publish_date != None)  # noqa: E711
         else:

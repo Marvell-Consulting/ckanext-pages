@@ -12,6 +12,7 @@ try:
 except ImportError:
     from HTMLParser import HTMLParser
 from ckanext.pages.logic.schema import update_pages_schema
+# , default_pages_schema
 
 try:
     import ckan.authz as authz
@@ -41,6 +42,8 @@ def _pages_show(context, data_dict):
 
 
 def _pages_list(context, data_dict):
+    # print('data_dict')
+    # print(data_dict)
     search = {}
     org_id = data_dict.get('org_id')
     ordered = data_dict.get('order')
@@ -69,7 +72,20 @@ def _pages_list(context, data_dict):
         search['group_id'] = org_id
         if not member:
             search['private'] = False
+
+    # TODO: make it possible to search by extras
+    # schema = default_pages_schema()
+    # items = ['title', 'content', 'name', 'private',
+    #          'order', 'page_type', 'publish_date']
+    # extras = {}
+    # extra_keys = set(schema.keys()) - set(items + ['id', 'created'])
+    # for key in extra_keys:
+    #     if key in data_dict:
+    #         extras[key] = data_dict.get(key)
+    # search['extras'] = json.dumps(extras)
+    # print('search is', search)
     out = db.Page.pages(**search)
+    # print('full out', out)
     out_list = []
     for pg in out:
         parser = HTMLFirstImage()
@@ -124,7 +140,8 @@ def _pages_update(context, data_dict):
 
     # backward compatible with older version where page_type does not exist
     for item in items:
-        setattr(out, item, data.get(item, 'page' if item == 'page_type' else None))
+        setattr(out, item, data.get(
+            item, 'page' if item == 'page_type' else None))
 
     extras = {}
 
