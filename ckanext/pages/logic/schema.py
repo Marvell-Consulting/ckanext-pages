@@ -28,6 +28,7 @@ def default_pages_schema():
         'private': [ignore_missing,
                     p.toolkit.get_validator('boolean_validator')],
         'group_id': [ignore_missing, unicode_safe],
+        'homepage_section': [ignore_missing, unicode_safe],
         'user_id': [ignore_missing, unicode_safe],
         'created': [ignore_missing, isodate],
         'publish_date': [
