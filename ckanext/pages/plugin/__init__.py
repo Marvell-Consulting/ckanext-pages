@@ -39,7 +39,8 @@ def build_pages_nav_main(*args):
 
     about_menu = tk.asbool(tk.config.get('ckanext.pages.about_menu', True))
     group_menu = tk.asbool(tk.config.get('ckanext.pages.group_menu', True))
-    org_menu = tk.asbool(tk.config.get('ckanext.pages.organization_menu', True))
+    org_menu = tk.asbool(tk.config.get(
+        'ckanext.pages.organization_menu', True))
 
     # Different CKAN versions use different route names - gotta catch em all!
     about_menu_routes = ['about', 'home.about']
@@ -59,14 +60,17 @@ def build_pages_nav_main(*args):
     output = core_build_nav_main(*new_args)
 
     # do not display any private pages in menu even for sysadmins
-    pages_list = tk.get_action('ckanext_pages_list')(None, {'order': True, 'private': False})
+    pages_list = tk.get_action('ckanext_pages_list')(
+        None, {'order': True, 'private': False})
 
     page_name = ''
     if ckan_29_or_higher:
-        is_current_page = tk.get_endpoint() in (('pages', 'show'), ('pages', 'blog_show'))
+        is_current_page = tk.get_endpoint() in (
+            ('pages', 'show'), ('pages', 'blog_show'))
     else:
         is_current_page = (
-            hasattr(tk.c, 'action') and tk.c.action in ('pages_show', 'blog_show')
+            hasattr(tk.c, 'action') and tk.c.action in (
+                'pages_show', 'blog_show')
             and tk.c.controller == 'ckanext.pages.controller:PagesController')
     if is_current_page:
         page_name = tk.request.path.split('/')[-1]
@@ -78,7 +82,8 @@ def build_pages_nav_main(*args):
         else:
             name = quote(page['name'])
         title = html_escape(page['title'])
-        link = tk.h.literal(u'<a href="/{}/{}">{}</a>'.format(type_, name, title))
+        link = tk.h.literal(
+            u'<a href="/{}/{}">{}</a>'.format(type_, name, title))
         if page['name'] == page_name:
             li = tk.literal('<li class="active">') + link + tk.literal('</li>')
         else:
@@ -131,24 +136,28 @@ class PagesPlugin(PagesPluginBase, MixinPlugin):
     p.implements(p.IConfigurable, inherit=True)
 
     def update_config(self, config):
-        self.organization_pages = tk.asbool(config.get('ckanext.pages.organization', False))
+        self.organization_pages = tk.asbool(
+            config.get('ckanext.pages.organization', False))
         self.group_pages = tk.asbool(config.get('ckanext.pages.group', False))
 
         tk.add_template_directory(config, '../theme/templates_main')
         if self.group_pages:
             tk.add_template_directory(config, '../theme/templates_group')
         if self.organization_pages:
-            tk.add_template_directory(config, '../theme/templates_organization')
+            tk.add_template_directory(
+                config, '../theme/templates_organization')
 
         tk.add_resource('../assets', 'pages')
 
         tk.add_public_directory(config, '../assets/')
         tk.add_public_directory(config, '../assets/vendor/ckeditor/')
-        tk.add_public_directory(config, '../assets/vendor/ckeditor/skins/moono-lisa')
+        tk.add_public_directory(
+            config, '../assets/vendor/ckeditor/skins/moono-lisa')
 
     def get_helpers(self):
         return {
-            'build_nav_main': build_pages_nav_main,
+            # Removing the build main nav, as we've hard coded "Pages" as an option there
+            # 'build_nav_main': build_pages_nav_main,
             'render_content': render_content,
             'get_wysiwyg_editor': get_wysiwyg_editor,
             'get_recent_blog_posts': get_recent_blog_posts,

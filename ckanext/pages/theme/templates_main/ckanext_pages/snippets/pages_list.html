@@ -40,7 +40,8 @@
         {% endif %}
 
       {% endif %}
-      <div class="row page-list-item dataset-item">
+      {# <div class="row page-list-item dataset-item"> #}
+      <div class="page-list-item dataset-item">
       {% if page.image %}
         <div class="span3 image">
           <a style="background-image:url({{ page.image }})" href="{{ url }}">
@@ -73,7 +74,9 @@
                <small class="date"> {{ h.render_datetime(page.publish_date) }} </small>
             {% endif %}
           </h3>
-          {% if page.content %}
+          {% if page.homepage_snippet %}
+            <p>{{page.homepage_snippet|striptags|truncate}}</p>
+          {% elif page.content %}
             {% if editor %}
             <div>
               {{page.content|striptags|truncate}}

@@ -99,6 +99,19 @@
       </div>
     </div>
 
+    <div class="control-group form-group">
+      <label for="field-add_to_home_page" class="control-label">{{ _('Add to Home Page') }}</label>
+      <div class="controls">
+        <select id="field-add_to_home_page" class="form-control" name="add_to_home_page">
+          {% for option in [(false, _('No')), (true, _('Yes'))] %}
+          <option value="{{ option[0] }}" {% if option[0] == data.add_to_home_page %}selected="selected"{% endif %}>{{ option[1] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    {{ form.markdown('homepage_snippet', id='field-homepage_snippet', label=_('Preview Snippet for home page'), value=data.homepage_snippet, error=errors.homepage_snippet) }}
+    {#
     {% if not hide_field_order %}
       <div class="control-group form-group">
         <label for="field-order" class="control-label">{{ _('Header Order') }}</label>
@@ -111,7 +124,7 @@
         </div>
       </div>
     {% endif %}
-
+    #}
   {% endblock %}
 
   {% block form_content %}
