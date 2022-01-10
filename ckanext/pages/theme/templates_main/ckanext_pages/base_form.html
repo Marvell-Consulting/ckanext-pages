@@ -116,7 +116,7 @@
       <div class="controls">
         <select id="homepage_section" class="form-control" name="homepage_section">
             {% for option in [('', _('No Section')), ('Standards directory and roadmap','Standards directory and roadmap'), ('Guidance on standards', 'Guidance on standards'), ('Community and contributions', 'Community and contributions')] %}
-          <option value="{{ option[0] }}" {% if option[0] == data.order %}selected="selected"{% endif %}>{{ option[1] }}</option>
+          <option value="{{ option[0] }}" {% if option[0] == data.homepage_section %}selected="selected"{% endif %}>{{ option[1] }}</option>
           {% endfor %}
         </select>
       </div>
