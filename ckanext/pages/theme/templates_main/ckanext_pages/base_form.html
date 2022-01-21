@@ -80,6 +80,8 @@
     {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain~'/', 'data-module-placeholder': '<page>'} %}
     {{ form.prepend('name', id='field-name', label=_('URL'), prepend=slug_prefix, placeholder=_(url_placeholder), value=data.name, error=errors.name, attrs=attrs) }}
 
+    {{ form.input('short_title', id='field-short_title', label=_('Optional Short Title (for homepage tiles)'), placeholder=short_title_placeholder, value=data.short_title, error=errors.short_title, classes=['control-full'], attrs={'class': 'form-control'}) }}
+
     {{ form.input('publish_date', id='field-publish_date', label=_('Publish Date'), placeholder=_('2021-04-23'), value=data.publish_date, error=errors.publish_date, classes=[], attrs={'data-module': 'datepicker', 'data-date-format': 'yyyy-mm-dd'}) }}
 
   {% endblock %}
