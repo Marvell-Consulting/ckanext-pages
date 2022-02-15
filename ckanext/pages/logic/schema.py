@@ -24,6 +24,8 @@ def default_pages_schema():
         'homepage_snippet': [ignore_missing, unicode_safe],
         'add_to_home_page': [ignore_missing,
                              p.toolkit.get_validator('boolean_validator')],
+        'show_table_of_contents': [ignore_missing,
+                             p.toolkit.get_validator('boolean_validator')],
         'page_type': [ignore_missing, unicode_safe],
         'order': [ignore_missing, unicode_safe],
         'private': [ignore_missing,

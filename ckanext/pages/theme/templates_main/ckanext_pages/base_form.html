@@ -173,6 +173,18 @@
 
   {% endblock %}
 
+  <div class="control-group form-group">
+    <label for="field-show_table_of_contents" class="control-label">{{ _('Show Table of Contents') }}</label>
+    <p>Select this option if you want to auto generate a table of contents from each heading in the page content</p>
+    <div class="controls">
+      <select id="field-show_table_of_contents" class="form-control" name="show_table_of_contents">
+        {% for option in [(false, _('No')), (true, _('Yes'))] %}
+        <option value="{{ option[0] }}" {% if option[0] == data.show_table_of_contents %}selected="selected"{% endif %}>{{ option[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
   {% block form_actions %}
     <div class="form-actions">
       {% if not page %}
