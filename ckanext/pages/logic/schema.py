@@ -17,7 +17,6 @@ def default_pages_schema():
     return {
         'id': [ignore_empty, unicode_safe],
         'title': [not_empty, unicode_safe],
-        'short_title': [ignore_missing, unicode_safe],
         'name': [
             not_empty, unicode_safe, name_validator, page_name_validator],
         'content': [ignore_missing, unicode_safe],
