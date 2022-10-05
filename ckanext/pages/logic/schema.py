@@ -20,7 +20,6 @@ def default_pages_schema():
         'name': [
             not_empty, unicode_safe, name_validator, page_name_validator],
         'content': [ignore_missing, unicode_safe],
-        'homepage_snippet': [ignore_missing, unicode_safe],
         'show_table_of_contents': [ignore_missing,
                                    p.toolkit.get_validator('boolean_validator')],
         'page_type': [ignore_missing, unicode_safe],
