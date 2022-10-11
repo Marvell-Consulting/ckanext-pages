@@ -101,6 +101,8 @@
       </div>
     </div>
 
+    {{ form.markdown('homepage_snippet', id='field-homepage_snippet', label=_('Preview Snippet for home page'), value=data.homepage_snippet, error=errors.homepage_snippet) }}
+
     {{ form.markdown('meta_description', id='field-meta_description', label=_('Meta description (describe the page to search bots)'), value=data.meta_description, error=errors.meta_description) }}
 
     {#

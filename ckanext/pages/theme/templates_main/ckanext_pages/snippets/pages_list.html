@@ -64,6 +64,9 @@
                <small class="date"> {{ h.render_datetime(page.publish_date) }} </small>
             {% endif %}
           </h3>
+          {% if page.homepage_snippet %}
+            <p><em>{{page.homepage_snippet|striptags|truncate}}</em></p>
+          {% endif %}
 
           {% if page.content %}
             {% if editor %}
